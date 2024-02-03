@@ -8,6 +8,8 @@ require('dotenv').config();
 const PORT = process.env.PORT || 3000;
 
 require('./db');
+
+server.use(express.static(path.resolve(__dirname, 'build')));
 app.use(cors());
 app.use(express.json());
 
@@ -33,6 +35,10 @@ app.post('/', async (req, res) => {
         res.status(500).send({ error: error.toString() });
     }
 });
+
+server.get('*', (req, res) =>
+    res.sendFile(path.resolve('build', 'index.html'))
+);
 
 app.listen(PORT, () => {
     console.log(`Server is listening on port ${PORT}`);
