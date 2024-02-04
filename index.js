@@ -37,7 +37,10 @@ app.post('/', async (req, res) => {
     }
 });
 
-app.get('*', (req, res) => res.sendFile(path.resolve('build', 'index.html')));
+app.get('*', (req, res) => {
+    console.log('sending html file');
+    res.sendFile(path.resolve('build', 'index.html'));
+});
 
 app.listen(PORT, () => {
     console.log(`Server is listening on port ${PORT}`);
